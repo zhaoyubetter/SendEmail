@@ -31,11 +31,14 @@ class HtmlWorker implements Runnable{
         }
         urlItems.each {
             if(checkRequestUrl(it)) {
-                startRequestUrl(it)
+//                startRequestUrl(it)
             }
         }
-        println "email-size:$emailItems.size url:$requestUrl"
-//            emailItems.each {messageTextArea.append(it?it:""+"\n")}
+        println "email-size:$emailItems.size url-size:$urlItems.size \nurl:$requestUrl"
+        urlItems.each {println it?:""}
+
+        println "all email"
+        emailItems.each {println it?:""}
     }
     /**
      * 确定请求链在10个以内,是否重复,避免循环请求
@@ -65,7 +68,7 @@ class HtmlWorker implements Runnable{
             def parser = new XmlParser(new org.ccil.cowan.tagsoup.Parser())
             html=parser.parse(connection.inputStream)
         } catch (e){
-            println "请求失败:$requestUrl"
+            println "Request Failed:$requestUrl"
         }
         [serverUrl?:[],html]
     }
